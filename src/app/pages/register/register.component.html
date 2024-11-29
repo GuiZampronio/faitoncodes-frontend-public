@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Importando a fonte Inika do Google Fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400&display=swap" rel="stylesheet">
+    <style>
+        p{
+            color: white;
+        }
+
+        input{
+            width: 90%;
+        }
+
+        body {
+            font-family: 'Inika', serif; /* Aplicando a fonte Inika */        
+            overflow-x: hidden; /* Oculta o scroll horizontal */
+            overflow-y: auto; /* Exibe o scroll vertical somente se necessário */
+        }
+
+        .container-fluid {
+            padding-left: 0; /* Remove padding */
+            padding-right: 0; /* Remove padding */
+        }
+
+        .background-image {
+            background-image: url('assets/PortariaUnesp.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid background-image">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row" style="height: 100vh; text-align: center; margin-left: auto; margin-right: auto; background-color: rgba(0, 0, 100, 0.4);">
+                    <div class="col-md-8" style="margin-top: 40vh;">
+                        <p style="font-size: 54px;">
+                            {{ pageTitle }} 
+                        </p>
+                        <p style="color: rgb(255,255,255, 0.8);">
+                            Análise e validação de códigos<br>
+                            automatizadas - Suporte para<br>
+                            as linguagens C e C++
+                        </p>
+                    </div>
+                    <div class="col-md-4" style="text-align: center;">
+                        <div class="row" style="height: 100%; position: absolute; background-color: rgb(0, 74, 173, 0.85);">
+                            <div class="row" style="margin-top: 5vh;">
+                                <div class="col-md-12">                                    
+                                    <form action="" style="text-align: left; margin-left: 20px;" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                                        <div class="col-md-12" style="color: white; font-size: 38px;">
+                                            Cadastrar
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <input type="text" id="emailUsuario" name="emailUsuario" placeholder="Email" style="height: 50px; font-size: 30px; padding-left: 2%;" formControlName = "email">
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <input type="text" id="nmUsuario" name="nmUsuario" placeholder="Nome completo" style="height: 50px; font-size: 30px; padding-left: 2%;" formControlName = "nome">
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 15px;">
+                                            <input type="password" id="senhaUsuario" name="senhaUsuario" placeholder="Senha" style="height: 50px; font-size: 30px; padding-left: 2%;" formControlName = "password">
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <input type="password" id="repetirSenhaUsuario" name="repetirSenhaUsuario" placeholder="Repetir a senha" style="height: 50px; font-size: 30px; padding-left: 2%;"  formControlName = "passwordRpt">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12" style="color: white; font-size: 26px;">Tipo de conta:</div> 
+                                            </div>
+
+                                            <div class="form-check form-check-inline"  style="margin-top: 10px;">
+                                                <input class="form-check-input" style="height: 20px; width: 20px;" type="radio" value=1 formControlName = "tipoUsuario">
+                                                <label class="form-check-label" for="rdbtnAluno" style="color: white;">Aluno</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline" style="margin-top: 10px;">
+                                                <input class="form-check-input" style="height: 20px; width: 20px;" type="radio" value=2 formControlName = "tipoUsuario">
+                                                <label class="form-check-label" for="rdbtnAluno" style="color: white;">Professor</label>
+                                            </div>
+                                            
+                                        </div>  
+                                        <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px; display: flex;">
+                                            <input type="checkbox" id="ckbTermosUso" style="width: 26px; height: 26px; margin-right: 10px;" formControlName = "termosUso">
+                                            <label for="ckbTermosUso" style="font-size: 26px; color: white;">
+                                                Declaro que li e concordo com os <a href="">Termos de uso</a>
+                                            </label>
+                                        </div>                               
+                                        <div class="col-md-12">
+                                            <button id="btnNovoCadastro" style="height: 60px; background-color: rgba(0, 0, 255, 0); color: white; border: white solid 3px; width: 90%; font-size: 30px;">CADASTRAR</button>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

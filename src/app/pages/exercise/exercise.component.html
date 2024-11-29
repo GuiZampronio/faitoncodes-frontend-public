@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Importando a fonte Inika do Google Fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400&display=swap" rel="stylesheet">
+    <style>
+        p{
+            color: black;
+        }
+
+        input{
+            width: 90%;
+        }
+
+        body {
+            font-family: 'Inika', serif; /* Aplicando a fonte Inika */        
+            overflow-x: hidden; /* Oculta o scroll horizontal */
+            overflow-y: auto; /* Exibe o scroll vertical somente se necessário */
+        }
+
+        .rowEnvio{
+            margin-top: 1rem; 
+            margin-left: 1rem;
+        }
+
+        .colunaEnvio{
+            border: 1px solid black; 
+            box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            margin-top: 2rem;
+            font-size: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;   /* Alinha verticalmente no centro */
+            justify-content: center; /* Opcional: alinha horizontalmente no centro, caso queira */
+            height: 5rem; 
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body style="width: 100%;">
+
+    <nav class="navbar navbar-expand-lg" style="padding: 0px;">
+        <div class="container-fluid" style="background-color: rgb(0,148,222); padding-bottom: 5px; padding-top: 5px;">
+        <div class="logoImageFaitonCodes"></div>
+          <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+            <!--DIV PARA PREENCHIMENTO DO "PERFIL" DO ALUNO-->
+            <div class="fotoPerfil" style="padding-top: 8px;" mat-icon-button [matMenuTriggerFor]="menu" [style.background-color] = "'rgb(' + userColor + ')'">{{ userFirstLetter }}</div> <!--Incial do aluno virá do servidor-->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click) = "logOff()">Sair</button>
+            </mat-menu>
+          </div>
+        </div>
+    </nav>
+
+    <nav class="navbar" style="padding: 0px; margin-top: 5px;">
+        <div class="container-fluid d-flex align-items-center" style="background-color: rgb(0,74,173); height: 3rem; align-items: center;">
+            <a [routerLink]="['']" style="text-decoration: none; color: inherit;">
+            <span style="color: white; margin-top: 0.5rem;">Página Principal</span>
+            </a>
+        </div>
+    </nav>
+    
+    <div class="container-fixo">
+
+        @if(getExerciseId(); as dataParent){
+            
+            @if(tipoUsuario == 1){
+                @if(getSubmissionId(); as dataChild){
+                    <div id="divPontuacao" class="btnPontuacao" style="font-weight: bold;">Pontuação: {{ dataChild.correctTestCases }}/{{ dataChild.totalTestCases }}</div>
+                }@else {
+                    <div id="divPontuacao" class="btnPontuacao" style="font-weight: bold;">Pontuação: ?/?</div>    
+                }
+            }@else{
+                <div id="divPontuacao" class="btnEdicaoExercicio">
+                    <button style="border: none;" type="button" id="iconeEditarTurma" class="iconeEditarTurma" (click)="openExerciseDialog()"></button>
+                    <button (click)="openExerciseDialog()" style="background: none; border: none; font-weight: bold;">
+                        Editar Exercício
+                    </button>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="container-fluid">
+    
+        @if(getExerciseId(); as dataParent){
+            <div class="row rowEnvio">
+                <div class="iconeEnvio"></div>
+                <div class="col-md-8">
+                    <span style="font-size: 2rem;">Descrição do exercício:</span>
+                    <p style="font-size: 1.3rem;"> {{ dataParent.description }}</p>
+                    <p style="color: rgb(0,0,0, 0.6);">Editado por {{ dataParent.teacherName }} às {{ dataParent.updatedDate }}</p>
+                </div>
+            </div>
+
+            <div class="row rowEnvio" style="margin-right: 2rem;">
+                <div class="col-md-12" style="font-size: 2rem; text-align: end;">Data de entrega: {{ dataParent.dueDate }}</div>
+            </div>
+
+            @if(tipoUsuario == 1){
+                <div class="row" style="border: 1px solid black; border-radius: 10px; max-width: 75%; margin-left: 8rem; margin-top: 1rem;">
+                    <div class="col-md-12" style="margin-left: 2rem;">
+                        <div class="row" style="margin-top: 1rem; max-width: 100%; padding-bottom: 10px;">
+                            <div class="col-md-7 colunaEnvio" style="font-size: 25px; font-weight: bold;">
+                                <input type="file" (change)="onFileSelected($event)" accept=".txt, .c, .cpp" Adicione seu arquivo>
+                            </div>
+                            <button 
+                                (click)="uploadFile()" 
+                                [disabled]="!selectedFile || !allowButton" 
+                                class="col-md-3 iconeAdicionarEnvio">
+                            </button> 
+
+                            @if(getSubmissionId(); as dataChild){
+                                <div class="col-md-12" style="color: rgb(0,0,0,0.5); margin-top: 0.5rem; font-weight: bold;" [style.color] = "'rgb(' + dataChild.statusColor + ')'">{{ dataChild.status }}</div>
+                            }@else{
+                                @if(getSubmissionIdError()){ 
+                                    <div class="col-md-12" style="color: red; margin-top: 0.5rem;">{{ getSubmissionIdError() }}</div>
+                                }   
+                            }
+                        </div>
+                    </div>
+                </div>
+            }@else {
+
+                <div class="row" style="border: 1px solid black; border-radius: 10px; max-width: 75%; margin-left: 8rem; margin-top: 1rem; padding-bottom: 25px; margin-bottom: 25px;">
+                    <div class="col-md-12" style="margin-left: 2rem;">
+                        <div class="row" style="margin-top: 1rem; max-width: 100%;">
+                            <div class="col-md-12">
+
+                                @if(getSubmissionList(); as data){
+                                    @for(item of data; track item){
+
+                                    <div class="row linhasEnvio" style="padding-top: 7px; padding-bottom: 7px;">
+                                        <div class="col-m-3 iconeEnvio"></div>
+                                        <div class="col-md-10">
+                                            <span style="font-size: 1.5rem;">Enviado por {{ item.studentName }}</span>
+                                            <br>
+                                            <span style="font-size: 1.1rem;">Envio realizado em {{ item.submittedTime }}</span>
+
+                                            <div id="divPontuacao" class="btnPontuacaoSubmission" style="font-size: 20px; ">Pontuação: {{ item.correctTestCases }}/{{ item.totalTestCases }}</div>
+                                        </div>
+
+                                    </div>
+
+                                    }@empty {
+                                    <div style="font-size: 18px; font-weight: bold; padding-top: 20px; text-align: center;"> Nenhuma submissão realizada até o momento </div>    
+                                    }
+                                }
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            }
+
+        }@else{
+
+            @if(getExerciseIdError()){
+                <div style="font-size: 18px; font-weight: bold; color: blue; padding-top: 20px; text-align: center;">  {{ getExerciseIdError() }} <br> Retorne à pagina inicial com o botão "Página Principal" no canto superior esquerdo </div>
+            }
+
+        }
+    </div>
+
+    <!-- @if(getExerciseId(); as dataParent){
+        
+        @if(tipoUsuario == 1){
+            @if(getSubmissionId(); as dataChild){
+                <div id="divPontuacao" class="btnPontuacao" style="font-weight: bold;">Pontuação: {{ dataChild.correctTestCases }}/{{ dataChild.totalTestCases }}</div>
+            }@else {
+                <div id="divPontuacao" class="btnPontuacao" style="font-weight: bold;">Pontuação: ?/?</div>    
+            }
+        }@else{
+            <div id="divPontuacao" class="btnEdicaoExercicio">
+                <button style="border: none;" type="button" id="iconeEditarTurma" class="iconeEditarTurma" (click)="openExerciseDialog()"></button>
+                <button (click)="openExerciseDialog()" style="background: none; border: none; font-weight: bold;">
+                    Editar Exercício
+                </button>
+            </div>
+        }
+    } -->
+</body>
+</html>

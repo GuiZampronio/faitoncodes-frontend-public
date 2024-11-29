@@ -1,0 +1,52 @@
+<header>
+    <h2 mat-dialog-title>{{ getData()?.title }}</h2>
+
+    <button (click)="closeModal()">
+      <img src="assets/close.svg" alt="Botão para fechar o dialog" />
+    </button>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+
+      mat-dialog-content {
+        font-family: 'Inika', serif; /* Aplicando a fonte Inika */        
+      }
+
+  </style>
+
+</header>
+
+
+<div class="row elementosModalAdicionarTurmas">
+
+  <div class="col-md-12" style=" font-size: 20px; color: black;">Título do Exercício</div>
+  <div class="col-md-12" style="border-radius: 5px; margin-top: 10px; margin-bottom: 1rem;"> 
+    <input style="font-size: 15px; padding:0.8rem; width: 300px;" [(ngModel)] = "exerciseTitle">
+  </div>
+  <div class="col-md-12" style=" font-size: 20px; color: black;">Descrição do Exercício</div>
+  <div class="col-md-12" style="border-radius: 5px; margin-top: 10px; margin-bottom: 1rem;"> 
+    <textarea rows="4" style="font-size: 15px; padding:0.8rem; width: 400px;" [(ngModel)] = "description"></textarea>
+  </div>
+  <div class="col-md-12" style=" font-size: 20px; color: black;">Casos de Teste (separar casos por / e entrada-saida por ; )</div>
+  <div class="col-md-12" style="border-radius: 5px; margin-top: 10px; margin-bottom: 1rem;"> 
+    <input style="font-size: 15px; padding:0.8rem; width: 300px;" [(ngModel)] = "testCases">
+  </div>
+  <div class="col-md-12" style=" font-size: 20px; color: black;">Data de Entrega</div>
+  <div class="col-md-12" style="border-radius: 5px; margin-top: 10px; margin-bottom: 1rem;"> 
+    <input style="font-size: 15px; padding:0.8rem; width: 180px;" type="text" [formControl]="dateTimeControl" placeholder="yyyy-MM-dd HH:mm" maxlength="16" (input)="applyMask($event)" [(ngModel)] = "dueDate">
+  </div>
+
+</div>
+    
+<div class="modal-footer" style="margin-top: 1rem; border: none; padding-bottom: 10px;">
+    @if (getData()?.edit){
+      <button class="botaoAcaoModal" type="button" (click)="editExercise(userToken, exerciseId, classId, exerciseTitle, description, testCases, dueDate)">
+        Editar Exercício
+      </button>
+    }@else {
+      <button class="botaoAcaoModal" type="button" (click)="createExercise(userToken, classId, exerciseTitle, description, testCases, dueDate)">
+        Criar Exercício
+      </button>
+    }
+</div>

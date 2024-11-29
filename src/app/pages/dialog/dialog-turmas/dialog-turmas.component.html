@@ -1,0 +1,76 @@
+<header>
+    <h2 mat-dialog-title>{{ getData()?.title }}</h2>
+
+    <button (click)="closeModal()">
+      <img src="assets/close.svg" alt="Botão para fechar o dialog" />
+    </button>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+
+      mat-dialog-content {
+        font-family: 'Inika', serif; /* Aplicando a fonte Inika */        
+      }
+
+  </style>
+
+</header>
+
+@if(getData()?.loginType == 1){
+
+  <mat-dialog-content>
+
+    <div class="row elementosModalAdicionarTurmas">
+      <div class="col-md-12">Sua conta:</div>
+      <div class="col-md-12">
+          <div class="row" style="align-items: center;">
+              <div class="col-md-2"><div class="fotoPerfil" style="padding-top: 14px;">H</div></div>
+              <div class="col-md-4"><div style="font-weight: bold;">{{ getData()?.email }}</div></div>
+          </div>
+      </div>
+    </div>
+
+    
+    <div class="row elementosModalAdicionarTurmas" style="margin-top: 2rem;">
+          <div class="col-md-12" style="font-weight: bold;">Insira o código da turma</div>
+          <div class="col-md-12" style="font-size: 12px; font-style: italic;">Seu código pode ser encontrado com o seu discente</div>
+          <div class="col-md-12" style="border-radius: 5px; margin-top: 10px; margin-bottom: 1rem;"> 
+              <input placeholder="Código Turma" style="font-size: 1.5rem; padding:0.8rem;" [(ngModel)] = "codTurma">
+          </div>
+    </div>
+    
+  </mat-dialog-content>
+
+  <div class="modal-footer" style="margin-top: 1rem; border: none; padding-bottom: 10px;">
+    <button class="botaoAcaoModal" type="button" (click)="linkClass(userToken, codTurma)">Entrar</button>
+  </div>
+
+}@else { <!-- Início Dialog do Professor -->
+
+  <mat-dialog-content>
+    
+    <div class="row elementosModalAdicionarTurmas">
+          <div class="col-md-12" style=" font-size: 20px; color: black;">Nome da Disciplina</div>
+          <div class="col-md-12" style="border-radius: 5px; margin-top: 10px; margin-bottom: 1rem;"> 
+              <input style="font-size: 15px; padding:0.8rem; width: 300px;" [(ngModel)] = "className">
+          </div>
+          <div class="col-md-12" style=" font-size: 20px; color: black;">Comunicado (Tela Inicial)</div>
+          <div class="col-md-12" style="border-radius: 5px; margin-top: 10px; margin-bottom: 1rem;"> 
+            <textarea rows="4" style="font-size: 15px; padding:0.8rem; width: 300px;" [(ngModel)] = "announcement"></textarea>
+        </div>
+        <div class="col-md-12" style=" font-size: 20px; color: black; margin-top: 30px;">Código da Turma: {{ getData()?.classCode }}</div>
+        <div class="col-md-12" style=" font-size: 15px; color: grey;">{{ getData()?.bottomText }}</div>
+    </div>
+    
+  </mat-dialog-content>
+  
+  <div class="modal-footer" style="margin-top: 1rem; border: none; padding-bottom: 10px;">
+    @if (getData()?.edit){
+      <button class="botaoAcaoModal" type="button" (click)="editClass(userToken, className, announcement, classId)">Editar Turma</button>
+    }@else {
+      <button class="botaoAcaoModal" type="button" (click)="createClass(userToken, className, announcement)">Criar Turma</button>
+    }
+  </div>
+  
+}

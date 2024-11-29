@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Importando a fonte Inika do Google Fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400&display=swap" rel="stylesheet">
+    <style>
+        p{
+            color: white;
+        }
+
+        input{
+            width: 90%;
+        }
+
+        body {
+            font-family: 'Inika', serif; /* Aplicando a fonte Inika */        
+            overflow-x: hidden; /* Oculta o scroll horizontal */
+            overflow-y: auto; /* Exibe o scroll vertical somente se necessário */
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body style="width: 100%;">
+
+    <nav class="navbar navbar-expand-lg" style="padding: 0px;">
+        <div class="container-fluid" style="background-color: rgb(0,148,222); padding-bottom: 5px; padding-top: 5px;">
+        <div class="logoImageFaitonCodes"></div>
+          <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+            <!--DIV PARA PREENCHIMENTO DO "PERFIL" DO ALUNO-->
+            <div class="fotoPerfil" style="padding-top: 8px;" mat-icon-button [matMenuTriggerFor]="menu" [style.background-color] = "'rgb(' + userColor + ')'">{{ userFirstLetter }}</div> <!--Incial do aluno virá do servidor-->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click) = "logOff()">Sair</button>
+            </mat-menu>
+          </div>
+        </div>
+    </nav>
+
+    <nav class="navbar" style="padding: 0px; margin-top: 5px;">
+        <div class="container-fluid d-flex align-items-center" style="background-color: rgb(0,74,173); height: 3rem; align-items: center;">
+            <a [routerLink]="['']" style="text-decoration: none; color: inherit;">
+            <span style="color: white; margin-top: 0.5rem;">Página Principal</span>
+            </a>
+        </div>
+    </nav>
+    
+    
+    <div class="container-fluid containerVisualizarTurmas" style="border-radius: 10px !important;">
+        <div class="row">
+        @if(getClassId(); as dataParent){
+            <div class="col-md-12" style="border-radius: 10px;" [style.background-color] = "'rgb(' + dataParent.color + ')'">
+                <!-- <span style="color:white;">Tem alguma Dúvida? Utilize a nossa sessão de discussões!</span> -->
+                <div class="row" style="margin-left: 2rem; margin-top: 2rem; margin-bottom: 2rem;">
+                    <div class="col-md-12">
+                        <span style="font-size: 2rem; color: white;">{{ dataParent.className }}</span>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 2rem;">
+                        <span style="font-size: 1rem; color: white;">{{ dataParent.teacherName }}</span>
+                    </div>
+                </div>
+                @if(tipoUsuario == 2){
+                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent" style="padding-right: 20px; padding-bottom: 20px;">
+                        <button style="border: none;" type="button" id="iconeEditarTurma" class="iconeEditarTurma" (click)="openDialog()"></button>
+                    </div>
+                }
+            </div>
+
+            @if(tipoUsuario == 2){
+            <div class="col-md-12" style="padding-top: 10px;">
+                <button (click)="openExerciseDialog()" style="background: none; border: none; font-weight: bold;">
+                    + Adicionar Exercicio
+                </button>
+            </div>
+            }
+
+            @if(getExerciseList(); as data){
+                @for(item of data; track item){
+                    <div class="col-md-12">
+                        <a  [routerLink]="['exercicio', item.id]" style="text-decoration: none; color: inherit;">
+                        <div class="row linhasEnvio" style="margin-bottom: 10px; padding: 5px 0px;">
+                            <div class="col-m-3 iconeEnvio"></div>
+                            <div class="col-md-9">
+                                <span style="font-size: 1.5rem;">Enviado por {{ dataParent.teacherName }}: {{ item.title }}</span>
+                                <br>
+                                <span style="font-size: 1.1rem;">Editado pela última vez em {{ item.updatedDate }}</span>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                }@empty {
+                    <div style="font-size: 18px; color: black; padding-top: 25px;"> Essa turma ainda não possui exercícios! </div> 
+                }
+                <div class="col-md12" style="margin-top: 15px;"></div>
+            }@else{
+                <div style="font-size: 18px; color: black; padding-top: 25px;"> Carregando exercícios... </div>
+            }
+
+        }@else{
+
+            @if(getClassIdError()){
+                <div style="font-size: 18px; font-weight: bold; color: blue; padding-top: 20px; text-align: center;">  {{ getClassIdError() }} ou você não possui acesso a ela! <br> Retorne à pagina inicial com o botão "Página Principal" no canto superior esquerdo </div>
+            }
+
+        }
+        </div>
+    </div>
+
+</body>
+</html>

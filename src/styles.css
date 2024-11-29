@@ -1,0 +1,194 @@
+@import "primeng/resources/themes/saga-purple/theme.css";
+/* @import "primeng/resources/themes/mira/theme.css"; */
+/* @import "primeng/resources/themes/vela-blue/theme.css"; */
+@import "primeng/resources/primeng.css";
+
+.logoImageFaitonCodes{
+    background-image: url('./assets/LogoFaitonCodes.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+}
+
+.backGroundPaginaALuno{
+    background-color: white;
+}
+
+/* .navbar{
+    height: 70px;
+} */
+
+.fotoPerfil{
+    height: 50px;
+    width: 50px; 
+    background-color: rgb(219,24,106); 
+    border-radius: 30px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    vertical-align: auto;
+    margin-right: 1rem;
+}
+
+.iconeAdicionarTurma{
+    background-image: url("./assets/IconeAdicionarTurma.png");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    border-radius: 60px;
+    margin-right: 2rem;
+}
+
+.iconeEditarTurma{
+    background: none;
+    background-image: url("./assets/iconeEditarTurma.png");
+    background-size: cover;
+    background-position: center;
+    height: 30px;
+    width: 30px;
+    mix-blend-mode:multiply;
+}
+
+.containerTurmas{
+    background-color: white;
+    background-size: cover;
+    background-position: cover;
+    border: 2px solid black;  
+    min-height: 80vh; 
+    border-radius: 20px;
+    margin-top: 20px;
+    width: 95%;
+    overflow-y: auto; /*Somente habilitará o scroll vertical quando passar da altura de 80vh*/
+}
+
+.containerVisualizarTurmas{
+    background-color: white;
+    background-size: cover;
+    background-position: cover;
+    min-height: 80vh; 
+    border-radius: 20px;
+    margin-top: 20px;
+    width: 85%;
+    overflow-y: auto; /*Somente habilitará o scroll vertical quando passar da altura de 80vh*/
+}
+
+.objetosTurmas{
+    background-color: white;
+    margin-top: 3rem;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 3rem;
+    border-radius: 5px;
+    /* box-shadow: ; */
+    border: 2px solid black;
+}
+
+.elementosModalAdicionarTurmas{
+    border: 1px solid rgb(0,0,0, 0.7); 
+    border-radius: 10px;
+    margin-left: 0.5rem; 
+    margin-right: 0.5rem; 
+    padding: 1rem;
+}
+
+.botaoAcaoModal{
+    background-color: white; 
+    border: none;
+    font-size: 1.5rem;
+}
+
+.semEspaco{
+    margin-bottom: 0%;
+    margin-top: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+
+.iconeEnvio{
+    background-image: url("./assets/IconeEnvio.png");
+    height: 5rem;
+    width: 5rem; 
+    /* border-radius: 30px; */
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    vertical-align: auto;
+    margin-left: 1rem;
+}
+
+.linhasEnvio{
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-top: 1rem;
+    max-width: 90%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+}
+
+.iconeAdicionarEnvio {
+    background: none;
+    background-image: url("./assets/iconeAdicionarEnvio.png");
+    background-size: contain;  
+    background-position: center; 
+    background-repeat: no-repeat; 
+    margin-left: 10rem;
+    margin-top: 2.5rem;
+    height: 5rem;
+    width: 5rem;
+    border: none;
+    
+}
+
+button:disabled {
+    background-color: none;
+    cursor: not-allowed; 
+    opacity: 0.3; 
+}
+
+
+.container-fixo {
+    position: relative; /* O container não se move com o scroll */
+    top: 0;
+    left: 0;
+}
+
+.btnEdicaoExercicio{
+    width: 15%;
+    height: 2rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    position: absolute;
+    top: 3vh;
+    right: 1rem;
+} 
+
+.btnPontuacaoSubmission{
+    width: 25%;
+    height: 2rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    position: absolute;
+    top: 3vh;
+    right: 0px;
+} 
+
+.btnPontuacao{
+    width: 10%; 
+    border: 1px solid black; 
+    border-radius: 5px;
+    height: 2rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    position: absolute; 
+    top: 3vh; /*está na altura correspondente a altura total - 30% da tela*/
+    right: 1rem;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

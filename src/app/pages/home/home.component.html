@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Importando a fonte Inika do Google Fonts -->
+     <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/layout.css"> -->
+    <style>
+        p{
+            color: white;
+        }
+
+        input{
+            width: 90%;
+        }
+
+        body {
+            background-image: url("../../../assets/FundoGeral.png");
+            font-family: 'Inika', serif; /* Aplicando a fonte Inika */        
+            overflow-x: hidden; /* Oculta o scroll horizontal */
+            overflow-y: auto; /* Exibe o scroll vertical somente se necessário */
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        .background-image {
+            background-image: url('../../../assets/PortariaUnesp.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body style="width: 100%;">
+
+    <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary"> -->
+    <nav class="navbar navbar-expand-lg" style="padding: 0px;">
+        <div class="container-fluid" style="background-color: rgb(0,148,222); padding-bottom: 5px; padding-top: 5px; border-bottom: 3px solid black;">  
+          <div class="logoImageFaitonCodes"></div>
+          <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+            <button style="border: none;" type="button" id="iconeAdicionarTurma" class="iconeAdicionarTurma" (click)="openDialog()"></button>
+            <!--DIV PARA PREENCHIMENTO DO "PERFIL" DO ALUNO-->
+            <div class="fotoPerfil" style="padding-top: 8px;" mat-icon-button [matMenuTriggerFor]="menu" [style.background-color] = "'rgb(' + userColor + ')'">{{ userFirstLetter }}</div> <!--Incial do aluno virá do servidor-->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click) = "logOff()">Sair</button>
+            </mat-menu>
+          </div>
+        </div>
+    </nav>
+    <div class="container-fluid containerTurmas">
+        <div class="row" style="text-align: center;">
+            <!--Primeiro objeto de exemplo-->
+        @if(getClassList(); as data){
+            @for(item of data; track item){
+            <div class="col-md-5 objetosTurmas">
+                <a  [routerLink]="['turma', item.classId]" style="text-decoration: none; color: inherit;">
+                <div class="row" style="border-bottom: 2px solid black; padding-top: 1%; padding-bottom: 1%;">
+                    <div class="col-md-1">
+                        <div class="fotoPerfil" style="padding-top: 8px;" [style.background-color] = "'rgb(' + item.color + ')'"> {{ item.teacherFirstLetter }} </div>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-md-10" style="padding: 0%; text-align: left;">
+                        <div class="col-md-12" style="font-size: 20px;">{{ item.className }}</div>
+                        <div class="col-md-12" style="font-size: 15px;">{{ item.teacherName }}</div>
+                    </div>
+                </div>
+                <div class="row" style="height: 5rem; align-items: center; padding-left: 2%; text-align: center;">
+                    <div style="align-items: center; font-size: 18px; font-weight: bold; word-wrap: break-word; overflow-wrap: break-word; white-space: normal; height: 4rem; overflow-y: auto;" [style.color] = "'rgb(' + item.color + ')'"> {{ item.announcement }}</div>
+                </div>
+                </a>
+            </div>
+            } @empty {
+                <div style="font-size: 18px; font-weight: bold; color: black; padding-top: 25px;"> Sem turmas. Adicione uma turma com o botão '+' acima </div>    
+            }
+        } @else {
+            <div style="font-size: 18px; font-weight: bold; color: black; padding-top: 25px;"> Carregando turmas... </div>
+        }
+
+        @if(getClassListError()){
+            <div style="font-size: 18px; font-weight: bold; color: red; padding-top: 25px;">  {{ getClassListError() }} </div>
+        }
+            
+        </div>
+    </div>
+
+    <div class="col-md12" style="margin-top: 20px;"></div>
+
+</body>
+</html>
